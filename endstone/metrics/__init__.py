@@ -109,7 +109,7 @@ class Metrics(MetricsBase):
         Args:
             service_data (Dict[str, Any]): The dict to append data to.
         """
-        service_data["pluginVersion"] = self._plugin.description.version
+        service_data["pluginVersion"] = self._plugin._description.version
 
     def submit_task(self, task: Callable[[], None]) -> None:
         self._plugin.server.scheduler.run_task(self._plugin, task)
