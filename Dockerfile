@@ -31,11 +31,10 @@ WORKDIR /usr/src/endstone
 
 # Install C++ dependencies using Conan
 COPY conanfile.py conanfile.py
-ENV M4=/usr/bin/m4
 RUN python -m pip install --upgrade pip \
     && pip install conan cmake ninja \
     && conan profile detect \
-    && conan install . --build=missing -s compiler.cppstd=20 -s compiler.libcxx=libc++ -c tools.cmake.cmaketoolchain:generator=Ninja
+    && conan install . --build=missing --build=m4/* -s compiler.cppstd=20 -s compiler.libcxx=libc++ -c tools.cmake.cmaketoolchain:generator=Ninja
 
 # Copy the rest of the project files
 COPY . .
