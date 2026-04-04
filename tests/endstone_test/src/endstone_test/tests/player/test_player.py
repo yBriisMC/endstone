@@ -3,6 +3,7 @@ import uuid
 
 import pytest
 from endstone import GameMode, Player, Server
+from endstone.lang import Translatable
 
 # =============================================================================
 # Section 1: Identity & Online Status
@@ -294,3 +295,20 @@ def test_player_game_version(player: Player):
     version = player.game_version
     assert isinstance(version, str)
     assert re.match(r"^\d+\.\d+\.\d+", version), f"Unexpected version format: {version}"
+
+
+# =============================================================================
+# Section 9: Message Preconditions
+# =============================================================================
+
+
+def test_player_send_message_empty_string_raises(player: Player):
+    """Verify send_message rejects an empty string."""
+    with pytest.raises(ValueError):
+        player.send_message("")
+
+
+def test_player_send_message_empty_translatable_raises(player: Player):
+    """Verify send_message rejects a Translatable with empty text."""
+    with pytest.raises(ValueError):
+        player.send_message(Translatable(""))

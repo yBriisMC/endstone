@@ -130,6 +130,8 @@ Player *EndstonePlayer::asPlayer() const
 
 void EndstonePlayer::sendMessage(const Message &message) const
 {
+    Preconditions::checkArgument(!std::visit([](const auto &msg) { return msg.empty(); }, message),
+                                 "Message must not be empty");
     auto packet = MinecraftPackets::createPacket(MinecraftPacketIds::Text);
     auto &pk = static_cast<TextPacket &>(*packet);
     std::visit(overloaded{[&](const std::string &msg) {
@@ -146,8 +148,8 @@ void EndstonePlayer::sendMessage(const Message &message) const
                                   entry["with"] = {{"rawtext", with}};
                               }
                               nlohmann::json rawtext = {{"rawtext", nlohmann::json::array({entry})}};
-                              pk.payload = {.body = TextPacketPayload::MessageOnly{
-                                                TextPacketType::TextObject, rawtext.dump()}};
+                              pk.payload = {
+                                  .body = TextPacketPayload::MessageOnly{TextPacketType::TextObject, rawtext.dump()}};
                           }},
                message);
     getHandle().sendNetworkPacket(*packet);
