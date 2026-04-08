@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added `/restart` command (console-only) that gracefully restarts the server without manually relaunching.
+- Added support for custom Python events with optional cancellation.
+- Added `ActorType` to the registry API.
+- Added `BlockData.translation_key` for retrieving the translation key of a block.
+- Added `WritableBookMeta`, `BookMeta`, and `CrossbowMeta` item meta types.
+- Added binary NBT serialization (`dump`/`load`) with support for multiple formats.
+- Added unified `Object.as<T>()`/`is<T>()` casting API, replacing the per-type `asPlayer()`, `asMob()`, etc. methods.
+
+### Changed
+
+- **BREAKING**: Replaced `Dimension::Type` enum with `DimensionId`, a namespaced identifier that supports custom
+  dimensions. Use `Dimension.OVERWORLD`, `Dimension.NETHER`, `Dimension.THE_END` constants or look up by identifier.
+  `Dimension.name` has been replaced by `Dimension.id`.
+- **BREAKING**: Replaced `asPlayer()`, `asMob()`, `asConsole()`, etc. with `as<T>()`/`is<T>()` on all `CommandSender`
+  and `Actor` subtypes. In Python, use `isinstance()` as before.
+- **BREAKING**: `Player` no longer inherits from `OfflinePlayer`.
+- **BREAKING**: `BlockPlaceEvent.get_block()` now returns the placed block instead of the replaced block.
+  `getBlockPlacedState`/`getBlockReplaced` renamed to `getBlockPlaced`/`getBlockReplacedState` to match Bukkit.
+
+
+### Fixed
+
+- Fixed type annotations for `Plugin` and `event_handler`.
+- Fixed `Player.sendMessage` accepting empty messages.
+- Fixed command argument parsing dropping optional message parameters with empty tokens.
+- Fixed plugin manager destruction order causing access violations on shutdown.
+
 ## [0.11.3] - 2026-04-02
 
 ### Added
