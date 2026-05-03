@@ -16,8 +16,22 @@ public:
     [[nodiscard]] ActorTypeId getHumanActorType() const override;
 
 private:
-    std::unordered_map<std::string, CustomItemDefinition> items_;
-    std::unordered_map<std::string, CustomBlockDefinition> blocks_;
+    struct StoredCustomItemDefinition {
+        explicit StoredCustomItemDefinition(CustomItemDefinition definition);
+
+        CustomItemDefinition definition;
+        std::string base_type_storage;
+    };
+
+    struct StoredCustomBlockDefinition {
+        explicit StoredCustomBlockDefinition(CustomBlockDefinition definition);
+
+        CustomBlockDefinition definition;
+        std::string base_type_storage;
+    };
+
+    std::unordered_map<std::string, StoredCustomItemDefinition> items_;
+    std::unordered_map<std::string, StoredCustomBlockDefinition> blocks_;
     std::unordered_map<std::string, CustomEnchantmentDefinition> enchants_;
 };
 }  // namespace endstone::core
