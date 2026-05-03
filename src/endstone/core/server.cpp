@@ -83,6 +83,7 @@ EndstoneServer::EndstoneServer() : logger_(LoggerFactory::getLogger(""))
     plugin_manager_ = std::make_unique<EndstonePluginManager>(*this);
     service_manager_ = std::make_unique<EndstoneServiceManager>();
     scheduler_ = std::make_unique<EndstoneScheduler>(*this);
+    content_registry_ = std::make_unique<EndstoneContentRegistry>();
     start_time_ = std::chrono::system_clock::now();
 
     try {
@@ -539,6 +540,11 @@ bool EndstoneServer::isPrimaryThread() const
 ItemFactory &EndstoneServer::getItemFactory() const
 {
     return EndstoneItemFactory::instance();
+}
+
+ContentRegistry &EndstoneServer::getContentRegistry() const
+{
+    return *content_registry_;
 }
 
 Scoreboard *EndstoneServer::getScoreboard() const

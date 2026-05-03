@@ -125,6 +125,11 @@ public:
     static constexpr auto EnderDragon = ActorTypeId::minecraft("ender_dragon");
     static constexpr auto Npc = ActorTypeId::minecraft("npc");
     static constexpr auto Player = ActorTypeId::minecraft("player");
+
+    /**
+     * @brief Human-like entity identifier for fake-player / NPC systems.
+     */
+    static constexpr auto Human = ActorTypeId::minecraft("player");
     static constexpr auto TripodCamera = ActorTypeId::minecraft("tripod_camera");
 
     // Non-living entities
