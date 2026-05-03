@@ -25,6 +25,7 @@
 #include "endstone/core/ban/ip_ban_list.h"
 #include "endstone/core/ban/player_ban_list.h"
 #include "endstone/core/command/command_map.h"
+#include "endstone/core/custom/content_registry.h"
 #include "endstone/core/crash_handler.h"
 #include "endstone/core/lang/language.h"
 #include "endstone/core/level/level.h"
@@ -92,6 +93,7 @@ public:
     [[nodiscard]] bool isPrimaryThread() const override;
 
     [[nodiscard]] ItemFactory &getItemFactory() const override;
+    [[nodiscard]] ContentRegistry &getContentRegistry() const override;
     [[nodiscard]] Scoreboard *getScoreboard() const override;
     [[nodiscard]] std::shared_ptr<Scoreboard> createScoreboard() override;
     float getCurrentMillisecondsPerTick() override;
@@ -156,6 +158,7 @@ private:
     std::unordered_map<std::type_index, std::unique_ptr<IRegistry>> registries_;
     std::shared_ptr<EndstoneScoreboard> scoreboard_;
     std::unique_ptr<EndstoneMetrics> metrics_;
+    std::unique_ptr<EndstoneContentRegistry> content_registry_;
     std::unordered_map<UUID, std::shared_ptr<EndstoneScoreboard>> player_boards_;
     std::chrono::system_clock::time_point start_time_;
     IResourcePackRepository *resource_pack_repository_ = nullptr;

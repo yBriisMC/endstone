@@ -49,6 +49,7 @@ class Scheduler;
 class Player;
 class PluginCommand;
 class PluginManager;
+class ContentRegistry;
 
 template <typename T>
 class Registry;
@@ -266,6 +267,11 @@ public:
      * @see ItemFactory
      */
     [[nodiscard]] virtual ItemFactory &getItemFactory() const = 0;
+
+    /**
+     * @brief Gets the custom content registry used for plugin-defined items, blocks and enchantments.
+     */
+    [[nodiscard]] virtual ContentRegistry &getContentRegistry() const = 0;
 
     /**
      * @brief Gets the primary Scoreboard controlled by the server.

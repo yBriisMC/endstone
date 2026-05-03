@@ -65,6 +65,7 @@ add_library(endstone_core
         command/defaults/seed_command.cpp
         command/defaults/status_command.cpp
         command/defaults/version_command.cpp
+        custom/content_registry.cpp
         damage/damage_source.cpp
         enchantments/enchantment.cpp
         form/form_codec.cpp
